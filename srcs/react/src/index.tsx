@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+// import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Book from './Book';
 import Clock from './Clock';
@@ -11,7 +11,7 @@ root.render(
   <React.StrictMode>
     <Book />
     <Clock />
-    <App />
+    {/* <App /> */}
   </React.StrictMode>
 );
 
