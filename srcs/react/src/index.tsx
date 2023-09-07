@@ -3,17 +3,19 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Book from './Book';
 import Clock from './Clock';
-import AxiosComponent from 'AxiosComponent';
+// import InputForm from './component/multi/InputForm';
+import HandleLoginButton from './component/single/HandleLoginButton';
+// import AxiosComponent from 'AxiosComponent';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
   <React.StrictMode>
-    <Book />
     <Clock />
+    {/* <InputForm /> */}
     {/* <App /> */}
-    <AxiosComponent url='http://10.12.4.3:3000'></AxiosComponent>
+    {/* <AxiosComponent url='http://10.12.4.3:3000'></AxiosComponent> */}
+    <HandleLoginButton />
   </React.StrictMode>
 );
 
