@@ -5,6 +5,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Book from './Book';
 import Clock from './Clock';
+import AxiosComponent from 'AxiosComponent';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
@@ -12,6 +13,7 @@ root.render(
     <Book />
     <Clock />
     {/* <App /> */}
+    <AxiosComponent url='http://10.12.4.3:3000'></AxiosComponent>
   </React.StrictMode>
 );
 
