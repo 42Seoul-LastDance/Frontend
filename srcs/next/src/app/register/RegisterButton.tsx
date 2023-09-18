@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React from 'react';
 import axios, { AxiosResponse } from 'axios';
@@ -10,53 +10,59 @@ import { userState } from '../redux/userSlice';
 import store from '../redux/store';
 
 const RegisterButtonContent = () => {
-	const name = useSelector((state: userState) => state.name);
-	const imageUrl = useSelector((state: userState) => state.imageUrl);
-	const register = async () => {
-		const enrollToken = getCookie("enroll_token");
-		console.log(enrollToken);
-		if (enrollToken != undefined)
-		{
-			const postRes :AxiosResponse = await axios.post("http://10.19.9.4:3000/signup", {
-				headers: {	
-					Authorization: `Bearer ${enrollToken}`
-				},
-			});
-			const nameRes :AxiosResponse = await axios.patch("http://10.19.9.4:3000/signup/username", {
-				headers: {	
-					Authorization: `Bearer ${enrollToken}`
-				},
-				data: {
-					username: name,
-				}
-			});
-			const imageRes :AxiosResponse = await axios.patch("http://10.19.9.4:3000/signup/profileImage", {
-				headers: {	
-					Authorization: `Bearer ${enrollToken}`
-				},
-				data: {
-					profileImage: imageUrl,
-				}
-			});
-		}
-  }
+    const name = useSelector((state: userState) => state.name);
+    const imageUrl = useSelector((state: userState) => state.imageUrl);
+    const register = async () => {
+        const enrollToken = getCookie('enroll_token');
+        console.log(enrollToken);
+        if (enrollToken != undefined) {
+            const postRes: AxiosResponse = await axios.post(
+                'http://10.19.9.4:3000/signup',
+                {
+                    headers: {
+                        Authorization: `Bearer ${enrollToken}`,
+                    },
+                },
+            );
+            const nameRes: AxiosResponse = await axios.patch(
+                'http://10.19.9.4:3000/signup/username',
+                {
+                    headers: {
+                        Authorization: `Bearer ${enrollToken}`,
+                    },
+                    data: {
+                        username: name,
+                    },
+                },
+            );
+            const imageRes: AxiosResponse = await axios.patch(
+                'http://10.19.9.4:3000/signup/profileImage',
+                {
+                    headers: {
+                        Authorization: `Bearer ${enrollToken}`,
+                    },
+                    data: {
+                        profileImage: imageUrl,
+                    },
+                },
+            );
+        }
+    };
 
-//   @Post('/signup') // DB ㅅ생ㅅ 크토크만
-//   @Patch('/signup/username') // ㅌㅌㅌ큰 + username
-//   @Patch('/signup/profileImage') / 크토크
-  return (
-    <button onClick={register}> Register </button>
-  )
+    //   @Post('/signup') // DB 에 token 저장
+    //   @Patch('/signup/username') // token + username
+    //   @Patch('/signup/profileImage') / token + profileImage
+    return <button onClick={register}> Register </button>;
 };
 
 const RegisterButton = () => {
-	return (
-		<Provider store={store}>
-			<CookiesProvider>
-				<RegisterButtonContent/>
-			</CookiesProvider>
-		</Provider>
-	)
+    return (
+        <Provider store={store}>
+            <CookiesProvider>
+                <RegisterButtonContent />
+            </CookiesProvider>
+        </Provider>
+    );
 };
 
 export default RegisterButton;
