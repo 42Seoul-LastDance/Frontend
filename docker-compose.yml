@@ -9,14 +9,14 @@ services:
             - next:/usr/app/srcs
         networks:
             - my_network
-        # env_file:
-        #     - ./.env
+        env_file:
+            - ./.env
         ports:
             - '4242:4242'
         restart: always
-    #     depends_on:
-    #         - nest
-    #         - postgresql
+        depends_on:
+            - nest
+            - postgresql
 
     # nest:
     #     container_name: nest
@@ -61,17 +61,17 @@ volumes:
             o: bind
             device: '${PWD}/srcs/next'
     # nest:
-    #   driver: local
-    #   driver_opts:
-    #     type: none
-    #     o: bind
-    #     device: '${PWD}/srcs/nest'
+    #     driver: local
+    #     driver_opts:
+    #         type: none
+    #         o: bind
+    #         device: '${PWD}/srcs/nest'
     # db:
-    #   driver: local
-    #   driver_opts:
-    #     type: none
-    #     o: bind
-    #     device: '${PWD}/srcs/postgresql'
+    #     driver: local
+    #     driver_opts:
+    #         type: none
+    #         o: bind
+    #         device: '${PWD}/srcs/postgresql'
 
 networks:
     my_network:

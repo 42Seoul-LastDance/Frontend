@@ -4,18 +4,19 @@ import { Provider } from 'react-redux';
 // import InputForm from './component/multi/InputForm';
 // import LoginButton from './component/single/LoginButton';
 import Link from 'next/link';
-import { CookiesProvider } from 'react-cookie';
-// import RegisterHome from "./register/page";
 
 const Home = () => {
+    const backAddr = process.env.BACK_ADDR;
     return (
         <main>
-            <h1> Welcome! </h1>
-            <Link href="http://10.14.9.4:3000/auth/42login"> Login </Link>
+            <h1> 42Login! </h1>
+            <Link href={`${backAddr}/auth/42login`}>
+                <button>42 Login</button>{' '}
+            </Link>
             <br />
             <br />
             <br />
-            <Link href="/register"> TempButton </Link>
+            {/* <Link href="/register"> TempButton </Link> */}
             {/* <LoginButton/> */}
             {/* <RegisterHome/> */}
         </main>
