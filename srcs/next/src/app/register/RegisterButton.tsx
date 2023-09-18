@@ -1,65 +1,86 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { CookiesProvider } from 'react-cookie';
 import { getCookie } from '../Cookie';
-import { Provider } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import { userState } from '../redux/userSlice';
+import { RootState } from '../redux/store';
 import store from '../redux/store';
+import { redirect, useRouter } from 'next/navigation';
 
 const RegisterButtonContent = () => {
     const name = useSelector((state: userState) => state.name);
     const imageUrl = useSelector((state: userState) => state.imageUrl);
+    const isAvailable = useSelector(
+        (state: RootState) => state.user.isAvailable,
+    );
+    const backAddr = process.env.BACK_ADDR;
+    const { push } = useRouter();
+    const [success, setSuccess] = useState<boolean | null>(null);
+
+    useEffect(() => {
+        if (success === true) push('/main');
+        else if (success === false) push('/');
+    }, [success]);
+
     const register = async () => {
         const enrollToken = getCookie('enroll_token');
-        console.log(enrollToken);
-        if (enrollToken != undefined) {
-            const postRes: AxiosResponse = await axios.post(
-                'http://10.19.9.4:3000/signup',
+        console.log('enroll Token: ', enrollToken);
+        try {
+            await axios.post(
+                'http://10.14.3.1:3000/users/signup',
+                {},
                 {
                     headers: {
                         Authorization: `Bearer ${enrollToken}`,
                     },
                 },
             );
-            const nameRes: AxiosResponse = await axios.patch(
-                'http://10.19.9.4:3000/signup/username',
+            await axios.patch(
+                'http://10.14.3.1:3000/users/username',
+                {
+                    username: name,
+                },
                 {
                     headers: {
                         Authorization: `Bearer ${enrollToken}`,
                     },
-                    data: {
-                        username: name,
-                    },
                 },
             );
-            const imageRes: AxiosResponse = await axios.patch(
-                'http://10.19.9.4:3000/signup/profileImage',
+            await axios.patch(
+                `http://10.14.3.1:3000/users/signup/profileImage`,
+                {
+                    profileImage: imageUrl,
+                },
                 {
                     headers: {
                         Authorization: `Bearer ${enrollToken}`,
                     },
-                    data: {
-                        profileImage: imageUrl,
-                    },
                 },
             );
+            setSuccess(true);
+        } catch (error) {
+            console.log('Register error: ', error);
+            setSuccess(false);
         }
     };
 
-    //   @Post('/signup') // DB 에 token 저장
-    //   @Patch('/signup/username') // token + username
-    //   @Patch('/signup/profileImage') / token + profileImage
-    return <button onClick={register}> Register </button>;
+    return (
+        <button onClick={register} disabled={!isAvailable}>
+            Register
+        </button>
+    );
 };
 
 const RegisterButton = () => {
     return (
         <Provider store={store}>
             <CookiesProvider>
+                {/* <Link href="/main"> */}
                 <RegisterButtonContent />
+                {/* //</Link> */}
             </CookiesProvider>
         </Provider>
     );
