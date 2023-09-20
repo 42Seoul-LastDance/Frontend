@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, ChangeEvent, useEffect } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { Provider, useDispatch } from 'react-redux';
 import { setImageUrl } from '../redux/userSlice';
 import store from '../redux/store';
@@ -40,16 +40,11 @@ const ImageFormContent = () => {
         }
     };
 
-    useEffect(() => {
-        // 초기 이미지 설정
-        setPreviewImage('');
-    }, []);
-
     return (
         <form id="imageForm" encType="multipart/form-data">
             <label htmlFor="imageUpload">Upload image (180x180):</label>
             <img
-                src={previewImage || ''}
+                src={previewImage || '/defaultUser.jpeg'}
                 alt="Preview"
                 style={{ maxWidth: '180px', maxHeight: '180px' }}
             />
