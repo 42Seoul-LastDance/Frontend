@@ -5,13 +5,13 @@ import { Unity, useUnityContext } from "react-unity-webgl";
 
 function Game() {
 	const { unityProvider, sendMessage, addEventListener, removeEventListener } = useUnityContext({
-	  loaderUrl: "build/Pong.loader.js",
-	  dataUrl: "build/Pong.data.unityweb",
-	  frameworkUrl: "build/Pong.framework.js.unityweb",
-	  codeUrl: "build/Pong.wasm.unityweb",
+	  loaderUrl: "build/SocketTest.loader.js",
+	  dataUrl: "build/SocketTest.data.unityweb",
+	  frameworkUrl: "build/SocketTest.framework.js.unityweb",
+	  codeUrl: "build/SocketTest.wasm.unityweb",
 	});
   
-	const [gameOver, setGameOver] = useState<boolean | undefined>(undefined);
+	const [gameOver, setGameOver] = useState<boolean>(false);
   
 	// react to unity
 	function StartEvent() {
