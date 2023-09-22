@@ -19,6 +19,8 @@ const Home = () => {
             {/* <Link href="/register"> TempButton </Link> */}
             {/* <LoginButton/> */}
             {/* <RegisterHome/> */}
+
+			<Link href="/game"> Game Button </Link>
         </main>
     );
 };
